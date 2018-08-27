@@ -82,8 +82,8 @@ spec:
             - name: CONCOURSE_POSTGRES_DATA_SOURCE
               valueFrom:
                 secretKeyRef:
-                  name: {{ template "concourse.concourse.fullname" . }}
-                  key: postgresql-uri
+                  name: {{ template "concourse.concourse.fullname" . }}-postgres-secret
+                  key: uri
             {{- end }}
             {{- if .Values.concourse.encryption.enabled }}
             - name: CONCOURSE_ENCRYPTION_KEY

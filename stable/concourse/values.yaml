@@ -536,6 +536,17 @@ postgresql:
     ## Persistent Volume Storage Size.
     ##
     size: 8Gi
+
+  ## ALL OF THE FOLLOWING CONFIGURATION IS APPLICABLE ONLY IF
+  ## postgresql.embedded is set to false
+  ##
+  azure:
+    servicePlan: general-purpose
+    location: centralus
+    resourceGroup:
+    cores: 2
+    storage: 25
+
 ## Configuration values for using a Credential Manager. Only one can be enabled.
 ## ref: https://concourse-ci.org/creds.html
 ##
