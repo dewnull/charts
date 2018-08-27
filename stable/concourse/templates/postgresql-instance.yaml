@@ -1,0 +1,26 @@
+{{- if not .Values.postgresql.embedded }}
+apiVersion: servicecatalog.k8s.io/v1beta1
+kind: ServiceInstance
+metadata:
+  name: {{ template "concourse.concourse.fullname" . }}-postgres-instance
+  labels:
+    app: {{ template "concourse.concourse.fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+spec:
+  clusterServiceClassExternalName: azure-postgresql-9-6
+  clusterServicePlanExternalName: {{ .Values.postgresql.azure.servicePlan }}
+  parameters:
+    location: {{ .Values.postgresql.azure.location }}
+    resourceGroup: {{ .Values.postgresql.azure.resourceGroup | default .Release.Namespace }}
+    cores: {{ .Values.postgresql.azure.cores }}
+    storage: {{ .Values.postgresql.azure.storage }}
+    tags:
+        application: {{ template "concourse.concourse.fullname" . }}
+    # sslEnforcement: {{ .Values.postgresql.azure.sslEnforcement }}
+    # firewallRules:
+    # - startIPAddress: "0.0.0.0"
+    #   endIPAddress: "255.255.255.255"
+    #   name: "AllowAll"
+{{- end }}
